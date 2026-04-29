@@ -1,51 +1,37 @@
 function addDeleteButtons() {
-  // 1. Find all video rows
+  // Find all video rows that don't have our button yet
   const videoRows = document.querySelectorAll('ytd-playlist-video-renderer:not(.has-delete-btn)');
 
   videoRows.forEach(row => {
-    // 2. Find the container to place our button (the metadata area)
-    const container = row.querySelector('#meta');
-    if (!container) return;
-
     row.classList.add('has-delete-btn');
 
-    // 3. Create our "Quick Remove" button
+    // Create the button
     const btn = document.createElement('button');
-    btn.innerText = 'X';
+    btn.innerText = '🗑️';
     btn.className = 'quick-delete-btn';
     btn.title = 'Remove from Watch Later';
 
-    btn.onclick = (e) => {
-      e.preventDefault();
-      
-      // Find the three-dot menu button for THIS specific row
+    // Logic to trigger YouTube's hidden menu
+    btn.onclick = () => {
       const menuBtn = row.querySelector('button[aria-label="Action menu"]');
       if (menuBtn) {
-        menuBtn.click();
-
-        // 4. Wait for the popup menu to appear (as seen in image_9a1797.png)
+        menuBtn.click(); // Open the menu
+        
+        // Wait a split second for the menu to appear in the DOM
         setTimeout(() => {
           const menuOptions = document.querySelectorAll('ytd-menu-service-item-renderer');
-          
-          // Look for the option that contains the text from your screenshot
-          const removeOpt = Array.from(menuOptions).find(opt => {
-            const text = opt.innerText || "";
-            return text.includes('Remove from Watch later');
-          });
-
-          if (removeOpt) {
-            removeOpt.click();
-            // Optional: Hide the row immediately for a snappy feel
-            row.style.opacity = '0.3';
-            row.style.pointerEvents = 'none';
-          }
-        }, 100);
+          const removeOpt = Array.from(menuOptions).find(opt => 
+            opt.innerText.includes('Remove from')
+          );
+          if (removeOpt) removeOpt.click();
+        }, 50);
       }
     };
 
-    container.appendChild(btn);
+    // Append the button to the row
+    row.querySelector('#content').appendChild(btn);
   });
 }
 
-// Run the check every second
-setInterval(addDeleteButtons, 1000);
+// Run every 2 seconds to catch new videos as you scroll
+setInterval(addDeleteButtons, 2000);
