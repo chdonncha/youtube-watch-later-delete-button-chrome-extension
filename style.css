@@ -1,15 +1,16 @@
-body {
-  width: 200px;
-  padding: 10px;
-  font-family: sans-serif;
-  text-align: center;
-}
-
-button {
-  background-color: #4285f4;
+.quick-delete-btn {
+  background: #cc0000;
   color: white;
   border: none;
-  padding: 8px;
-  cursor: pointer;
   border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  height: fit-content;
+  align-self: center;
+}
+
+.quick-delete-btn:hover {
+  background: #ff0000;
 }
