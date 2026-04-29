@@ -1,16 +1,25 @@
 .quick-delete-btn {
-  background: #cc0000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-left: 10px;
-  font-weight: bold;
-  height: fit-content;
-  align-self: center;
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  
+  /* Size Adjustments */
+  font-size: 24px !important;    /* Doubled from ~12px */
+  padding: 10px 20px !important; /* Increased padding for a larger hit area */
+  
+  margin-left: 15px !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+  z-index: 10 !important;
+  transition: transform 0.1s;    /* Subtle click effect */
 }
 
 .quick-delete-btn:hover {
-  background: #ff0000;
+  background-color: #cc0000 !important;
+  transform: scale(1.05);        /* Makes it pop slightly on hover */
+}
+
+.quick-delete-btn:active {
+  transform: scale(0.95);        /* Visual feedback when clicked */
 }
